@@ -72,6 +72,7 @@ jobs:
           ARTIFACT_ID: parity-metric-pro-raw-amd*
           WORKFLOW: "AWS / Build, Test, Push" 
           PREFIX_ARTIFACT: pro-integration-test
+          LIMIT: 100
       
       - name: Download coverage (capture-notimplemented) data from Pro pipeline (GitHub)
         working-directory: docs
