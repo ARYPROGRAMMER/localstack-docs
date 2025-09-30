@@ -83,6 +83,7 @@ jobs:
           ARTIFACT_ID: capture-notimplemented-pro 
           WORKFLOW: "AWS / Build, Test, Push" 
           RESOURCE_FOLDER: "metrics-implementation-details"
+          LIMIT: 100
 
       - name: Download metrics data from Community pipeline (GitHub)
         working-directory: docs
@@ -93,6 +94,7 @@ jobs:
           ARTIFACT_ID: parity-metric-raw-amd*
           WORKFLOW: "AWS / Build, Test, Push"
           PREFIX_ARTIFACT: community-integration-test
+          LIMIT: 100
 
       - name: Download coverage (capture-notimplemented) data from Community pipeline (GitHub)
         working-directory: docs
@@ -103,6 +105,7 @@ jobs:
           ARTIFACT_ID: capture-notimplemented
           WORKFLOW: "AWS / Build, Test, Push"
           RESOURCE_FOLDER: "metrics-implementation-details/community"
+          LIMIT: 100
 
       - name: Download coverage data for K8s pipeline (acceptance tests) (GitHub)
         working-directory: docs
