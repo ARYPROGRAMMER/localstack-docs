@@ -103,6 +103,24 @@ jobs:
           WORKFLOW: "AWS / Build, Test, Push"
           RESOURCE_FOLDER: "metrics-implementation-details/community"
 
+      - name: Download coverage data for K8s pipeline (acceptance tests) (GitHub)
+        working-directory: docs
+        run: /tmp/get_latest_github_metrics.sh ./target k8s/tests-api-coverage
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRO_ACCESS_TOKEN }}
+          REPOSITORY_NAME: localstack-pro
+          ARTIFACT_ID: parity-metric-pro-acceptance-k8s-raw-amd64-*
+          WORKFLOW: "AWS / Pro K8s tests"
+
+      - name: Download coverage data for K8s pipeline (integration tests) (GitHub)
+        working-directory: docs
+        run: /tmp/get_latest_github_metrics.sh ./target k8s/tests-api-coverage
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRO_ACCESS_TOKEN }}
+          REPOSITORY_NAME: localstack-pro
+          ARTIFACT_ID: parity-metric-pro-k8s-integration-raw-amd64-
+          WORKFLOW: "AWS / Pro K8s tests"
+
       - name: Create Parity Coverage Docs
         working-directory: docs
         run: |
