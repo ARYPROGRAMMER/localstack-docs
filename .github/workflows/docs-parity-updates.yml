@@ -115,6 +115,7 @@ jobs:
           REPOSITORY_NAME: localstack-pro
           ARTIFACT_ID: parity-metric-pro-acceptance-k8s-raw-amd64-*
           WORKFLOW: "AWS / Pro K8s tests"
+          PREFIX_ARTIFACT: k8s-acceptance-test
 
       - name: Download coverage data for K8s pipeline (integration tests) (GitHub)
         working-directory: docs
@@ -124,6 +125,7 @@ jobs:
           REPOSITORY_NAME: localstack-pro
           ARTIFACT_ID: parity-metric-pro-k8s-integration-raw-amd64-*
           WORKFLOW: "AWS / Pro K8s tests"
+          PREFIX_ARTIFACT: k8s-integration-test
 
       - name: Create Parity Coverage Docs
         working-directory: docs
@@ -149,15 +151,15 @@ jobs:
         with:
           path: docs/.github/bot_templates/PARITY_COVERAGE_DOCS_PR.md
 
-      - name: Create PR
-        uses: peter-evans/create-pull-request@v7
-        if: ${{ success() && steps.check-for-changes.outputs.diff-count != '0' && steps.check-for-changes.outputs.diff-count != '' }}
-        with:
-          path: docs
-          title: "Update Parity Coverage Docs"
-          body: "${{ steps.template.outputs.content }}"
-          branch: "parity-coverage-auto-updates"
-          author: "LocalStack Bot <localstack-bot@users.noreply.github.com>"
-          committer: "LocalStack Bot <localstack-bot@users.noreply.github.com>"
-          commit-message: "update generated parity coverage docs"
-          token: ${{ secrets.PRO_ACCESS_TOKEN }}
+#      - name: Create PR
+#        uses: peter-evans/create-pull-request@v7
+#        if: ${{ success() && steps.check-for-changes.outputs.diff-count != '0' && steps.check-for-changes.outputs.diff-count != '' }}
+#        with:
+#          path: docs
+#          title: "Update Parity Coverage Docs"
+#          body: "${{ steps.template.outputs.content }}"
+#          branch: "parity-coverage-auto-updates"
+#          author: "LocalStack Bot <localstack-bot@users.noreply.github.com>"
+#          committer: "LocalStack Bot <localstack-bot@users.noreply.github.com>"
+#          commit-message: "update generated parity coverage docs"
+#          token: ${{ secrets.PRO_ACCESS_TOKEN }}
