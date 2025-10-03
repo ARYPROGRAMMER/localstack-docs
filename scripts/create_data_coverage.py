@@ -222,7 +222,6 @@ def aggregate_recorded_raw_data(
     pathlist = Path(base_dir).rglob("*.csv")
     for path in pathlist:
         test_source = path.stem
-        print(f"checking {str(path)} for {services_of_interest}")
         with open(path, "r") as csv_obj:
             csv_dict_reader = csv.DictReader(csv_obj)
             for metric in csv_dict_reader:
@@ -283,7 +282,6 @@ def aggregate_recorded_raw_data(
                 if external_test and not op_record.get("external_test_suite"):
                     op_record["external_test_suite"] = True
                 if k8s_tested and not op_record.get("k8s_test_suite"):
-                    print(f"Setting k8s_test_suite True for {op_name=} {op_record=}")
                     op_record["k8s_test_suite"] = True
 
                 aws_validated = (
