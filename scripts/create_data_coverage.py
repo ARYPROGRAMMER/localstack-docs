@@ -283,6 +283,7 @@ def aggregate_recorded_raw_data(
                 if external_test and not op_record.get("external_test_suite"):
                     op_record["external_test_suite"] = True
                 if k8s_tested and not op_record.get("k8s_test_suite"):
+                    print(f"Setting k8s_test_suite True for {op_record=}")
                     op_record["k8s_test_suite"] = True
 
                 aws_validated = (
