@@ -250,6 +250,7 @@ def aggregate_recorded_raw_data(
 
                 internal_test = False
                 external_test = False
+                k8s_tested = False
 
                 if test_source.startswith("community"):
                     test_node_origin = "LocalStack Community"
@@ -259,6 +260,9 @@ def aggregate_recorded_raw_data(
                     test_node_origin = "LocalStack Pro"
                     internal_test = True
                     source = "ls_pro"
+                elif test_source.startswith("k8s"):
+                    internal_test = True
+                    k8s_tested = True
                 else:
                     external_test = True
 
@@ -274,6 +278,8 @@ def aggregate_recorded_raw_data(
                     op_record["internal_test_suite"] = True
                 if external_test and not op_record.get("external_test_suite"):
                     op_record["external_test_suite"] = True
+                if k8s_tested and not op_record.get("k8s_tested"):
+                    op_record["k8s_test_suite"] = True
 
                 aws_validated = (
                     str(metric.get("aws_validated", "false")).lower() == "true"
