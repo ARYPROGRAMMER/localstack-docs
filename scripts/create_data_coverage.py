@@ -167,6 +167,7 @@ def _init_metric_recorder(operations_dict: dict):
             "aws_validated": False,
             "snapshot_tested": False,
             "snapshot_skipped": "",
+            "k8s_test_suite": False,
         }
         operations[operation] = op_attributes
 
