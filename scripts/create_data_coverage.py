@@ -229,10 +229,11 @@ def aggregate_recorded_raw_data(
                 service = metric.get("service")
                 if service not in services_of_interest:
                     continue
-                
-                node_id = metric.get("node_id") or metric.get("test_node_id")
-                if not node_id:
+
+                node_id = metric.get("node_id") or metric.get("test_node_id") or ""
+                if not node_id or not test_source.startswith("k8s"):
                     # some records do not have a node-id -> relates to requests in the background between tests
+                    # For K8s tests we do not have a node_id, so we keep those records
                     continue
 
                 # skip tests are marked as xfail
@@ -264,6 +265,8 @@ def aggregate_recorded_raw_data(
                 elif test_source.startswith("k8s"):
                     internal_test = True
                     k8s_tested = True
+                    source = "ls_pro"  # for now k8s tests are only running in pro
+                    test_node_origin = "LocalStack Pro"
                 else:
                     external_test = True
 
@@ -279,7 +282,7 @@ def aggregate_recorded_raw_data(
                     op_record["internal_test_suite"] = True
                 if external_test and not op_record.get("external_test_suite"):
                     op_record["external_test_suite"] = True
-                if k8s_tested and not op_record.get("k8s_tested"):
+                if k8s_tested and not op_record.get("k8s_test_suite"):
                     op_record["k8s_test_suite"] = True
 
                 aws_validated = (
