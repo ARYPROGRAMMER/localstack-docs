@@ -231,7 +231,7 @@ def aggregate_recorded_raw_data(
                     continue
 
                 node_id = metric.get("node_id") or metric.get("test_node_id") or ""
-                if not node_id or not test_source.startswith("k8s"):
+                if not node_id and not test_source.startswith("k8s"):
                     # some records do not have a node-id -> relates to requests in the background between tests
                     # For K8s tests we do not have a node_id, so we keep those records
                     continue
